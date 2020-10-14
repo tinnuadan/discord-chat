@@ -1,6 +1,12 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+}
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
+	id 'java'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -27,8 +33,9 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Discord Java API
-	compile("net.dv8tion:JDA:4.2.0_168")
+	compile "net.dv8tion:JDA:${project.jda_version}"
 }
+
 
 processResources {
 	inputs.property "version", project.version

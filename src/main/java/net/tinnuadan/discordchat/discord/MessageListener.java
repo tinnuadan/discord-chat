@@ -27,6 +27,7 @@ public class MessageListener extends ListenerAdapter
     if(!event.getChannel().getId().equals(channelID)) {
       return;
     }
-    msgSender.sendMessage(event.getMessage().toString());
+    String msg = String.format("%s§0§f", event.getMessage().toString());
+    msgSender.sendMessage(msg);
   }
 }

@@ -21,7 +21,8 @@ public class DiscordChatMod implements ModInitializer
 
   @Override
   public void onInitialize() {
-    final String channelID = "765936461467746304";
+    final String channelID = "";
+    final String token = "";
     mcSender = new MCMessageSender();
     LOGGER.info("Starting DiscordChat");
     try {

@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "MCChatMixin"
+    "MCChatMixin",
+    "MCMessageMixin"
   ],
   "injectors": {
     "defaultRequire": 1

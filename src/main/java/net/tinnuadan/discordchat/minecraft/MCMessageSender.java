@@ -33,6 +33,7 @@ public class MCMessageSender implements IMessageSender
     PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
     data.writeInt(MAGIC_NUMBER);
     data.writeString(msg);
-    ClientSidePacketRegistry.INSTANCE.sendToServer(DISCORD_CHAT_MSG, data);
+    mc.player.sendChatMessage(msg);
+//    ClientSidePacketRegistry.INSTANCE.sendToServer(DISCORD_CHAT_MSG, data);
   }
 }

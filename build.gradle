@@ -1,9 +1,5 @@
-buildscript {
-	repositories {
-		jcenter()
-	}
-}
 plugins {
+//	id 'com.github.johnrengelman.shadow' version '6.1.0'
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
 	id 'java'
@@ -16,9 +12,19 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+
 repositories {
 	jcenter()
+
 }
+
+tasks.remapJar.dependsOn(shadowJar)
+(tasks.remapJar.input as FileSystemLocationProperty<? extends FileSystemLocation>).set(shadowJar.archivePath)
+
+configurations {
+	shade
+}
+
 
 dependencies {
 	//to change the versions see the gradle.properties file
@@ -33,9 +39,14 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Discord Java API
-	compile "net.dv8tion:JDA:${project.jda_version}"
+	implementation 'net.dv8tion:JDA:4.2.0_168'
+	shadow "net.dv8tion:JDA:4.2.0_168"
 }
 
+shadowJar {
+	configurations = [project.configurations.shadow]
+	relocate 'net.dv8tion', 'discordchat.shaded.net.dv8tion'
+}
 
 processResources {
 	inputs.property "version", project.version
@@ -69,6 +80,12 @@ jar {
 	from "LICENSE"
 }
 
+//task relocateShadowJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation) {
+//	target = tasks.shadowJar
+//}
+//
+//tasks.shadowJar.dependsOn tasks.relocateShadowJar
+
 // configure the maven publication
 publishing {
 	publications {
@@ -87,5 +104,9 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
+		maven {
+			// change to point to your repo, e.g. http://my.org/repo
+			url = "$buildDir/repo"
+		}
 	}
 }

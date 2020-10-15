@@ -2,6 +2,7 @@ package net.tinnuadan.discordchat.discord;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.tinnuadan.discordchat.DiscordChatMod;
 import net.tinnuadan.discordchat.common.IMessageSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,8 @@ public class MessageListener extends ListenerAdapter
     if(!event.getChannel().getId().equals(channelID)) {
       return;
     }
-    msgSender.sendMessage(event.getMessage().getContentStripped());
+    final String msg = event.getMessage().getContentStripped();
+    DiscordChatMod.bot.setLastReceivedMessage(msg);
+    msgSender.sendMessage(msg);
   }
 }

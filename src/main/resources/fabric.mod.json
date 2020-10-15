@@ -3,7 +3,7 @@
   "id": "net_tinnuadan_discordchat",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "Discord Chat",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
